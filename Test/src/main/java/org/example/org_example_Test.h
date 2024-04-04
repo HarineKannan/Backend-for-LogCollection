@@ -10,10 +10,10 @@ extern "C" {
 /*
  * Class:     org_example_Test
  * Method:    getArray
- * Signature: ()[Ljava/lang/Object;
+ * Signature: (Ljava/lang/String;)[Ljava/lang/Object;
  */
 JNIEXPORT jobjectArray JNICALL Java_org_example_Test_getArray
-  (JNIEnv *, jobject);
+  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }

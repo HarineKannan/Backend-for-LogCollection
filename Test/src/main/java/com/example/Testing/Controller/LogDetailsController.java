@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+
+
 @RequestMapping("/api/log-details")
 public class LogDetailsController {
     @Autowired
@@ -31,6 +34,7 @@ public class LogDetailsController {
 
     @PostMapping("/change")
     public LogDetails insertToElasticsearch(@RequestBody LogDetails logDetails){
+        String username =logDetails.getUsername();
         String neededLog = logDetails.getNeededLog();
         List<String> fieldsNeeded = logDetails.getFieldsNeeded();
         boolean includeTimestamp = false;
@@ -54,7 +58,7 @@ public class LogDetailsController {
         }
 
         Test sample =new Test();
-        Object[] result = sample.getArray();
+        Object[] result = sample.getArray(neededLog);
         try {
             InsertIntoElasticsearch.insertion(result,includeEventCode,includeSourcename,includeTimestamp,includeMessage);
         } catch (IOException e) {
@@ -68,6 +72,7 @@ public class LogDetailsController {
 
     @PostMapping
     public LogDetails createLogDetails(@RequestBody LogDetails logDetails) {
+
         return logDetailsRepository.save(logDetails);
     }
 
